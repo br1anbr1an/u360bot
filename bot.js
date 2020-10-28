@@ -12,7 +12,7 @@ class EchoBot extends ActivityHandler {
             
             const response = await axios.get('https://jsonplaceholder.typicode.com/todos/1');;
             const replyText = response.data.title;
-            // console.log("TEST:: ", response.data);
+            console.log("TEST:: ", response.data);
 
             await context.sendActivity(MessageFactory.text(replyText, replyText));
             // By calling next() you ensure that the next BotHandler is run.
