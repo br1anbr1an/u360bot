@@ -2,22 +2,19 @@
 // Licensed under the MIT License.
 
 const { ActivityHandler, MessageFactory } = require('botbuilder');
-const axios = require('axios').default;
 
 class EchoBot extends ActivityHandler {
     constructor() {
         super();
         // See https://aka.ms/about-bot-activity-message to learn more about the message and other activity types.
         this.onMessage(async (context, next) => {
-            
             const response = await axios.get('https://jsonplaceholder.typicode.com/todos/1');;
-            const replyText = response.data.title;
+            // const replyText = response.data.title;
             console.log("TEST:: ", response.data);
-
+            const replyText = `Echo: ${ response.data.title }`;
             await context.sendActivity(MessageFactory.text(replyText, replyText));
             // By calling next() you ensure that the next BotHandler is run.
-            
-
+            await next();
         });
 
         this.onMembersAdded(async (context, next) => {
@@ -36,14 +33,6 @@ class EchoBot extends ActivityHandler {
 
 module.exports.EchoBot = EchoBot;
 
-function get() {
-    return axios.get("https://jsonplaceholder.typicode.com/todos/1")
-    .then((response) => {
-        dispatch({ type: Actions.RECEIVE_DATA, payload: response.data }) //Change
-    }).catch((err) => {
-        dispatch({ type: Actions.FETCH_DATA_ERROR, payload: err })
-    })
-}
 // SIG // Begin signature block
 // SIG // MIInOgYJKoZIhvcNAQcCoIInKzCCJycCAQExDzANBglg
 // SIG // hkgBZQMEAgEFADB3BgorBgEEAYI3AgEEoGkwZzAyBgor
