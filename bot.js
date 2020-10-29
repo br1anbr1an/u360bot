@@ -3,6 +3,8 @@
 
 const { ActivityHandler, MessageFactory } = require('botbuilder');
 
+const axios = require('axios').default;
+
 class EchoBot extends ActivityHandler {
     constructor() {
         super();
